@@ -12,20 +12,17 @@ object CliParser extends scopt.OptionParser[Configuration]("file-converter") {
 
   opt[String]('i', "in").required().valueName("<file>").action((x, c) => c.copy(inputFilePath = x)).
     text("in is a required file property")
-  opt[String]('o', "out").required().valueName("<file>").action((x, c) => c.copy(inputFilePath = x)).
+  opt[String]('o', "out").required().valueName("<file>").action((x, c) => c.copy(outputFilePath = x)).
     text("out is a required file property")
 
   cmd("avro").action((_, c) => c.copy(toAvro = true)).text("avro is a command.").
-    children(
-      checkConfig(c =>
-        if (c.toAvro == true) failure("xyz cannot keep alive")
-        else success)
-    )
+    children()
 
   cmd("parquet").action((_, c) => c.copy(toParquet = true)).text("parquet is a command.").
-    children(
-      checkConfig(c =>
-        if (c.toParquet == true) failure("xyz cannot keep alive")
-        else success)
-    )
+    children()
+
+  checkConfig(c =>
+    if (c.toAvro == c.toParquet) failure("avro and parquet commands cannot be used together")
+    else success
+  )
 }
