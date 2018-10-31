@@ -10,7 +10,9 @@ class First extends FlatSpec {
     val mapper = new AvroMapper
     val driver = MapDriver.newMapDriver(mapper)
 
-    driver.addInput(null, new Text(""))
-    driver.run()
+    driver.addInput(new LongWritable(0), new Text(""))
+    val value = driver.run()
+
+    assert(value.isEmpty)
   }
 }
