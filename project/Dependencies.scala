@@ -16,7 +16,7 @@ object Dependencies {
   )
   
   lazy val test = Seq(
-    "org.apache.mrunit" % "mrunit" % versions.mrunit,
+    "org.apache.mrunit" % "mrunit" % versions.mrunit classifier("hadoop2"),
     "org.scalatest" %% "scalatest" % versions.scalatest
   ).map(_ % Test)
 }
