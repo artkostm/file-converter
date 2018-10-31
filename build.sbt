@@ -4,5 +4,13 @@ version := "0.1"
 
 scalaVersion := "2.12.7"
 
-libraryDependencies += "org.apache.hadoop" % "hadoop-core" % "1.2.1"
-libraryDependencies += "com.github.scopt" %% "scopt" % "3.7.0"
+libraryDependencies ++= Dependencies.main
+
+enablePlugins(JavaAppPackaging)
+
+mainClass in Compile := Some("com.epam.bigdata101.hdfstask.Main")
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case _ => MergeStrategy.first
+}
