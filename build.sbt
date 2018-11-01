@@ -10,6 +10,7 @@ libraryDependencies ++= Dependencies.test
 enablePlugins(JavaAppPackaging)
 
 mainClass in Compile := Some("com.epam.bigdata101.hdfstask.Main")
+mainClass in assembly := Some("com.epam.bigdata101.hdfstask.Main")
 
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
