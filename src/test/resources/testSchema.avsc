@@ -1,0 +1,26 @@
+{
+  "type" : "record",
+  "name" : "tests",
+  "fields" : [
+    {
+      "name" : "field1",
+      "type" : [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "field2",
+      "type": [
+        "string"
+      ]
+    },
+    {
+      "name": "field3",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  ]
+}
