@@ -3,6 +3,7 @@ package com.epam.bigdata101.hdfstask
 import java.io.{File, StringWriter}
 
 import org.apache.commons.logging.LogFactory
+import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.mapred.JobConf
 
@@ -25,9 +26,9 @@ final case class AppConfig(
 
 object AppConfig {
   private val logger = LogFactory.getLog(AppConfig.getClass)
-  val SchemaFilePathKey = "hdfstask.schema.file"
+  val SkipHeaderKey = "hdfstask.csv.skip.header"
 
-  private def printJobConfig(jobConf: JobConf): Unit = {
+  private def printJobConfig(jobConf: Configuration): Unit = {
     val writer = new StringWriter()
     jobConf.writeXml(writer)
     logger.debug(writer.toString)
@@ -35,6 +36,7 @@ object AppConfig {
 
   def print(appConfig: AppConfig): Unit = {
     logger.debug("Application configuration: " + AppConfig.unapply(appConfig).get)
+    println("Application configuration: " + AppConfig.unapply(appConfig).get)
     printJobConfig(appConfig.jobConfiguration)
   }
 }
@@ -53,13 +55,12 @@ object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
   opt[String]('s', "schema").required().valueName("<file>").validate(new File(_).exists() match {
     case true => success
     case false => failure("Schema file does not exist!")
-  }).action{ (x, c) =>
-    c.jobConfiguration.set(AppConfig.SchemaFilePathKey, x)
-    c.copy(schemaFile = x)
-  }.text("schema is a required file property")
+  }).action((x, c) => c.copy(schemaFile = x)).text("schema is a required file property")
 
-  opt[Unit]('h', "header").action((_, c) => c.copy(skipHeaders = false))
-    .text("header is a flag. if present, header will not be ignored")
+  opt[Unit]('h', "header").action{(_, c) =>
+    c.jobConfiguration.setBoolean(AppConfig.SkipHeaderKey, false)
+    c.copy(skipHeaders = false)
+  }.text("header is a flag. if present, header will not be ignored")
 
 
   cmd("avro").action((_, c) => c.copy(converter = ConverterType.Avro)).text("avro is a command.")
