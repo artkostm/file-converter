@@ -1,20 +1,24 @@
 package com.epam.bigdata101.hdfstask
 
 import java.io.File
+import java.nio.charset.StandardCharsets
 
 import com.epam.bigdata101.hdfstask.ConverterType.{Avro, Parquet}
 import org.apache.avro.Schema
 import org.apache.avro.mapred.AvroOutputFormat
-import org.apache.avro.mapred.{AvroJob => MapredAvroJob}
 import org.apache.avro.mapreduce.AvroJob
+import org.apache.commons.io.FileUtils
 import org.apache.commons.logging.LogFactory
 import org.apache.hadoop.conf.Configured
 import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
 import org.apache.hadoop.util.Tool
-import org.apache.parquet.avro.AvroParquetOutputFormat
 import org.apache.parquet.example.data.Group
+import org.apache.parquet.hadoop.ParquetOutputFormat
+import org.apache.parquet.hadoop.example.ExampleOutputFormat
+import org.apache.parquet.hadoop.metadata.CompressionCodecName
+import org.apache.parquet.schema.MessageTypeParser
 
 import scala.util.Try
 
@@ -39,12 +43,13 @@ object FileConversionJob extends Configured() with Tool with App {
           case Avro =>
             job.setMapperClass(classOf[mapper.AvroMapper])
             jobConf.setOutputFormat(classOf[AvroOutputFormat[_]])
-//          MapredAvroJob.setOutputCodec(jobConf, "snappy") //need to test this
             AvroJob.setMapOutputValueSchema(job, new Schema.Parser().parse(new File(appConfig.schemaFile)))
           case Parquet =>
             job.setOutputValueClass(classOf[Group])
-            job.setOutputFormatClass(classOf[AvroParquetOutputFormat[_]])
-            AvroParquetOutputFormat.setSchema(job, new Schema.Parser().parse(new File(appConfig.schemaFile)))
+            job.setOutputFormatClass(classOf[ExampleOutputFormat])
+            ExampleOutputFormat.setSchema(job, MessageTypeParser.parseMessageType(readFile(appConfig.schemaFile)))
+            ParquetOutputFormat.setCompression(job, CompressionCodecName.GZIP)
+            ParquetOutputFormat.setBlockSize(job, 500 * 1024 * 1024)
             job.setMapperClass(classOf[mapper.ParquetMapper])
         }
 
@@ -65,4 +70,11 @@ object FileConversionJob extends Configured() with Tool with App {
       }
     case None => ExitCode.InvalidInput
   }
+
+  import scala.collection.JavaConverters._
+
+  def readFile(file: String): String =
+    // cannot use sys.props("line.separator")(for Windows, it is '\r\n' while in Unix it is just '\n')
+    // because MetaTypeParser reads \r as a type retention
+    FileUtils.readLines(new File(file), StandardCharsets.UTF_8).asScala.mkString("\n")
 }
