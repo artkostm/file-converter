@@ -8,15 +8,15 @@ import org.apache.parquet.hadoop.example.GroupWriteSupport
 
 import scala.collection.JavaConverters._
 
-class ParquetMapper extends HeaderSkippableMapper[LongWritable, Text, NullWritable, Group] {
+class ParquetMapper extends HeaderSkippableMapper[LongWritable, Text, Void, Group] {
   private var groupFactory: GroupFactory = _
 
-  override def setup(context: Mapper[LongWritable, Text, NullWritable, Group]#Context): Unit =
+  override def setup(context: Mapper[LongWritable, Text, Void, Group]#Context): Unit =
     groupFactory = new SimpleGroupFactory(GroupWriteSupport.getSchema(context.getConfiguration))
 
   override def process(key: LongWritable,
                        value: Text,
-                       context: Mapper[LongWritable, Text, NullWritable, Group]#Context): Unit = {
+                       context: Mapper[LongWritable, Text, Void, Group]#Context): Unit = {
     val values = value.toString.split(",")
     val group  = groupFactory.newGroup()
 
@@ -27,6 +27,6 @@ class ParquetMapper extends HeaderSkippableMapper[LongWritable, Text, NullWritab
       case (v, i) => group.add(names(i), v)
     }
 
-    context.write(NullWritable.get(), group)
+    context.write(null, group)
   }
 }

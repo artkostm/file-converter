@@ -30,7 +30,7 @@ class FileConversionJobSpec extends FlatSpec {
   }
 
   def withParquetMapDriver(schemaFile: String)
-                          (testCode: MapDriver[LongWritable, Text, NullWritable, Group] => Unit): Unit = {
+                          (testCode: MapDriver[LongWritable, Text, Void, Group] => Unit): Unit = {
     val mapper = new ParquetMapper
     val driver = MapDriver.newMapDriver(mapper)
     val config = driver.getConfiguration
