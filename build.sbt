@@ -14,5 +14,5 @@ mainClass in assembly := Some("com.epam.bigdata101.hdfstask.FileConversionJob")
 
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-  case _ => MergeStrategy.first
+  case _                             => MergeStrategy.first
 }

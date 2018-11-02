@@ -1,7 +1,7 @@
 package com.epam.bigdata101.hdfstask
 
 object ExitCode {
-  val Success = 0
+  val Success      = 0
   val InvalidInput = -1
-  val Failure = -2
+  val Failure      = -2
 }
