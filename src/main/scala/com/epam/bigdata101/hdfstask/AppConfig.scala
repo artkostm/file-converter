@@ -9,24 +9,24 @@ import org.apache.hadoop.mapred.JobConf
 
 object ConverterType {
   sealed trait Converter
-  case object Avro extends Converter
+  case object Avro    extends Converter
   case object Parquet extends Converter
 }
 
 final case class AppConfig(
-                                inputFile: Path = new Path(Path.CUR_DIR),
-                                outputFile: Path = new Path(Path.CUR_DIR),
-                                schemaFile: String = Path.CUR_DIR,
-                                converter: ConverterType.Converter = new ConverterType.Converter {},
-                                skipHeaders: Boolean = true
-                              ) {
-  lazy val jobConfiguration: JobConf = new JobConf()
+    inputFile: Path = new Path(Path.CUR_DIR),
+    outputFile: Path = new Path(Path.CUR_DIR),
+    schemaFile: String = Path.CUR_DIR,
+    converter: ConverterType.Converter = new ConverterType.Converter {},
+    skipHeaders: Boolean = true,
+    jobConfiguration: JobConf = new JobConf()
+) {
   lazy val hdfs: FileSystem = FileSystem.get(jobConfiguration)
 }
 
 object AppConfig {
   private val logger = LogFactory.getLog(AppConfig.getClass)
-  val SkipHeaderKey = "hdfstask.csv.skip.header"
+  val SkipHeaderKey  = "hdfstask.csv.skip.header"
 
   private def printJobConfig(jobConf: Configuration): Unit = {
     val writer = new StringWriter()
@@ -36,7 +36,6 @@ object AppConfig {
 
   def print(appConfig: AppConfig): Unit = {
     logger.debug("Application configuration: " + AppConfig.unapply(appConfig).get)
-    println("Application configuration: " + AppConfig.unapply(appConfig).get)
     printJobConfig(appConfig.jobConfiguration)
   }
 }
@@ -46,22 +45,34 @@ object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
 
   head("File-Converter", "0.1")
 
-  opt[String]('i', "in").required().valueName("<file>").action((x, c) => c.copy(inputFile = new Path(x))).
-    text("in is a required file property")
+  opt[String]('i', "in")
+    .required()
+    .valueName("<file>")
+    .action((x, c) => c.copy(inputFile = new Path(x)))
+    .text("in is a required file property")
 
-  opt[String]('o', "out").required().valueName("<file>").action((x, c) => c.copy(outputFile = new Path(x))).
-    text("out is a required file property")
+  opt[String]('o', "out")
+    .required()
+    .valueName("<file>")
+    .action((x, c) => c.copy(outputFile = new Path(x)))
+    .text("out is a required file property")
 
-  opt[String]('s', "schema").required().valueName("<file>").validate(new File(_).exists() match {
-    case true => success
-    case false => failure("Schema file does not exist!")
-  }).action((x, c) => c.copy(schemaFile = x)).text("schema is a required file property")
+  opt[String]('s', "schema")
+    .required()
+    .valueName("<file>")
+    .validate(new File(_).exists() match {
+      case true  => success
+      case false => failure("Schema file does not exist!")
+    })
+    .action((x, c) => c.copy(schemaFile = x))
+    .text("schema is a required file property")
 
-  opt[Unit]('h', "header").action{(_, c) =>
-    c.jobConfiguration.setBoolean(AppConfig.SkipHeaderKey, false)
-    c.copy(skipHeaders = false)
-  }.text("header is a flag. if present, header will not be ignored")
-
+  opt[Unit]('h', "header")
+    .action { (_, c) =>
+      c.jobConfiguration.setBoolean(AppConfig.SkipHeaderKey, false)
+      c.copy(skipHeaders = false)
+    }
+    .text("header is a flag. if present, header will not be ignored")
 
   cmd("avro").action((_, c) => c.copy(converter = ConverterType.Avro)).text("avro is a command.")
 
@@ -69,7 +80,7 @@ object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
 
   checkConfig(_.converter match {
     case Avro | Parquet => success
-    case _ => failure("Please use either [avro] or [parquet] command!")
+    case _              => failure("Please use either [avro] or [parquet] command!")
   })
 
   checkConfig { c =>
