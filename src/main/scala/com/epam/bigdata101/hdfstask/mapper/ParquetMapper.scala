@@ -1,9 +1,8 @@
 package com.epam.bigdata101.hdfstask.mapper
 
-import org.apache.avro.mapred.AvroKey
+import org.apache.avro.generic.GenericRecord
 import org.apache.hadoop.io.{LongWritable, NullWritable, Text}
-import org.apache.hadoop.mapreduce.Mapper
 
-class ParquetMapper extends Mapper[LongWritable, Text, AvroKey[String], NullWritable] {
-
-}
+class ParquetMapper
+    extends HeaderSkippableMapper[LongWritable, Text, NullWritable, GenericRecord]({ (key, value, context) =>
+      })
