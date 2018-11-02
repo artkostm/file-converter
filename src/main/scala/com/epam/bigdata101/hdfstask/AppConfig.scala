@@ -27,6 +27,7 @@ final case class AppConfig(
 object AppConfig {
   private val logger = LogFactory.getLog(AppConfig.getClass)
   val SkipHeaderKey  = "hdfstask.csv.skip.header"
+  val ParquetSchema  = "hdfstask.csv.parquet.schema"
 
   private def printJobConfig(jobConf: Configuration): Unit = {
     val writer = new StringWriter()
