@@ -4,26 +4,26 @@ import org.apache.avro.Schema
 import org.apache.avro.generic.{GenericData, GenericRecord}
 import org.apache.avro.mapred.AvroValue
 import org.apache.hadoop.io._
-import org.apache.hadoop.mapreduce.Mapper
 
 import scala.collection.JavaConverters._
-import scala.collection.mutable
 
-class AvroMapper extends HeaderSkippableMapper[LongWritable, Text, NullWritable, AvroValue[GenericRecord]] {
-  private var schema: Schema                = _
-  private var names: mutable.Buffer[String] = _
+/**
+  * Mapper to convert a text file to an avro file
+  */
+class AvroMapper
+    extends HeaderSkippableMapper[LongWritable, Text, NullWritable, AvroValue[GenericRecord], (Schema, Seq[String])] {
 
-  override def setup(context: Mapper[LongWritable, Text, NullWritable, AvroValue[GenericRecord]]#Context): Unit = {
+  withSetup { context =>
     val schemaString = context.getConfiguration.get("avro.serialization.value.writer.schema")
-    schema = new Schema.Parser().parse(schemaString)
-    names = schema.getFields.asScala.map(_.name())
+    val schema       = new Schema.Parser().parse(schemaString)
+    val names        = schema.getFields.asScala.map(_.name())
+    (schema, names)
   }
 
-  override def process(key: LongWritable,
-                       value: Text,
-                       context: Mapper[LongWritable, Text, NullWritable, AvroValue[GenericRecord]]#Context): Unit = {
-    val record = new GenericData.Record(schema)
-    val values = value.toString.split(",")
+  withMap { (_, value, context, setup) =>
+    val (schema, names) = setup
+    val record          = new GenericData.Record(schema)
+    val values          = value.toString.split(",")
     values.zipWithIndex.foreach {
       case (v, i) => record.put(names(i), v)
     }
