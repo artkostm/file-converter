@@ -2,6 +2,7 @@ package com.epam.bigdata101.hdfstask
 
 import java.io.File
 
+import com.epam.bigdata101.hdfstask.config.AppConfig
 import com.epam.bigdata101.hdfstask.mapper.{AvroMapper, ParquetMapper}
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericRecord
@@ -35,7 +36,6 @@ class FileConversionJobSpec extends FlatSpec {
     val driver = MapDriver.newMapDriver(mapper)
     val config = driver.getConfiguration
     val rawschema = FileConversionJob.readFile(schemaFile)
-    config.set(AppConfig.ParquetSchema, rawschema)
     config.setStrings("io.serializations", config.get("io.serializations"),
       classOf[JavaSerialization].getName())
     GroupWriteSupport.setSchema(MessageTypeParser.parseMessageType(rawschema), config)

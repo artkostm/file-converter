@@ -3,7 +3,8 @@ package com.epam.bigdata101.hdfstask
 import java.io.File
 import java.nio.charset.StandardCharsets
 
-import com.epam.bigdata101.hdfstask.ConverterType.{Avro, Parquet}
+import com.epam.bigdata101.hdfstask.config.{AppConfig, CliParser, ExitCode}
+import com.epam.bigdata101.hdfstask.config.ConverterType.{Avro, Parquet}
 import org.apache.avro.Schema
 import org.apache.avro.mapred.AvroOutputFormat
 import org.apache.avro.mapreduce.AvroJob
@@ -34,7 +35,6 @@ object FileConversionJob extends Configured() with Tool with App {
   override def run(args: Array[String]): Int = CliParser.parse(args, AppConfig()) match {
     case Some(appConfig) =>
       Try {
-        AppConfig.print(appConfig)
         val jobConf = appConfig.jobConfiguration
         val job     = Job.getInstance(jobConf, getClass.getName)
         job.setJarByClass(getClass)
@@ -51,6 +51,7 @@ object FileConversionJob extends Configured() with Tool with App {
             ParquetOutputFormat.setCompression(job, CompressionCodecName.GZIP)
             ParquetOutputFormat.setBlockSize(job, 500 * 1024 * 1024)
             job.setMapperClass(classOf[mapper.ParquetMapper])
+          case _ =>
         }
 
         job.setNumReduceTasks(0)
