@@ -3,6 +3,7 @@ package com.epam.bigdata101.hdfstask.config
 import java.io.File
 
 import com.epam.bigdata101.hdfstask.mapper.HeaderSkippableMapper
+import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.mapred.JobConf
 
@@ -12,7 +13,8 @@ final case class AppConfig(
     schemaFile: String = Path.CUR_DIR,
     converter: ConverterType.Converter = new ConverterType.Converter {},
     skipHeaders: Boolean = true,
-    jobConfiguration: JobConf = new JobConf()
+    jobConfiguration: JobConf = new JobConf(),
+    hdfsFactory: Configuration => FileSystem = FileSystem.get(_)
 )
 
 object ConverterType {
@@ -65,7 +67,7 @@ object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
   })
 
   checkConfig { c =>
-    val hdfs = FileSystem.get(c.jobConfiguration)
+    val hdfs = c.hdfsFactory(c.jobConfiguration)
     if (!hdfs.exists(c.inputFile)) {
       failure("Input file does not exist!")
     } else if (hdfs.exists(c.outputFile)) {

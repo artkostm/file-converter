@@ -5,9 +5,12 @@ object Dependencies {
     val hadoop        = "1.2.1"
     val hadoopCommon  = "3.1.1"
     val scopt         = "3.7.0"
+    val parquetHadoop = "1.10.0"
+
     val mrunit        = "1.1.0"
     val scalatest     = "3.0.5"
-    val parquetHadoop = "1.10.0"
+    val scalaCheck    = "1.14.0"
+    val scalaMock     = "4.1.0"
   }
 
   lazy val main = Seq(
@@ -20,6 +23,8 @@ object Dependencies {
 
   lazy val test = Seq(
     "org.scalatest"     %% "scalatest" % versions.scalatest,
-    "org.apache.mrunit" % "mrunit"     % versions.mrunit classifier ("hadoop1")
+    "org.apache.mrunit" % "mrunit"     % versions.mrunit classifier ("hadoop1"),
+    "org.scalacheck"    %% "scalacheck" % versions.scalaCheck,
+    "org.scalamock" %% "scalamock" % versions.scalaMock
   ).map(_ % Test)
 }
