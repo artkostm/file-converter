@@ -1,17 +1,10 @@
-package com.epam.bigdata101.hdfstask
+package com.epam.bigdata101.hdfstask.config
 
-import java.io.{File, StringWriter}
+import java.io.File
 
-import org.apache.commons.logging.LogFactory
-import org.apache.hadoop.conf.Configuration
+import com.epam.bigdata101.hdfstask.mapper.HeaderSkippableMapper
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.mapred.JobConf
-
-object ConverterType {
-  sealed trait Converter
-  case object Avro    extends Converter
-  case object Parquet extends Converter
-}
 
 final case class AppConfig(
     inputFile: Path = new Path(Path.CUR_DIR),
@@ -20,25 +13,12 @@ final case class AppConfig(
     converter: ConverterType.Converter = new ConverterType.Converter {},
     skipHeaders: Boolean = true,
     jobConfiguration: JobConf = new JobConf()
-) {
-  lazy val hdfs: FileSystem = FileSystem.get(jobConfiguration)
-}
+)
 
-object AppConfig {
-  private val logger = LogFactory.getLog(AppConfig.getClass)
-  val SkipHeaderKey  = "hdfstask.csv.skip.header"
-  val ParquetSchema  = "hdfstask.csv.parquet.schema"
-
-  private def printJobConfig(jobConf: Configuration): Unit = {
-    val writer = new StringWriter()
-    jobConf.writeXml(writer)
-    logger.debug(writer.toString)
-  }
-
-  def print(appConfig: AppConfig): Unit = {
-    logger.debug("Application configuration: " + AppConfig.unapply(appConfig).get)
-    printJobConfig(appConfig.jobConfiguration)
-  }
+object ConverterType {
+  sealed trait Converter
+  case object Avro    extends Converter
+  case object Parquet extends Converter
 }
 
 object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
@@ -48,19 +28,19 @@ object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
 
   opt[String]('i', "in")
     .required()
-    .valueName("<file>")
+    .valueName("<hdfs file>")
     .action((x, c) => c.copy(inputFile = new Path(x)))
     .text("in is a required file property")
 
   opt[String]('o', "out")
     .required()
-    .valueName("<file>")
+    .valueName("<hdfs directory>")
     .action((x, c) => c.copy(outputFile = new Path(x)))
     .text("out is a required file property")
 
   opt[String]('s', "schema")
     .required()
-    .valueName("<file>")
+    .valueName("<local file>")
     .validate(new File(_).exists() match {
       case true  => success
       case false => failure("Schema file does not exist!")
@@ -70,7 +50,7 @@ object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
 
   opt[Unit]('h', "header")
     .action { (_, c) =>
-      c.jobConfiguration.setBoolean(AppConfig.SkipHeaderKey, false)
+      c.jobConfiguration.setBoolean(HeaderSkippableMapper.SkipHeaderKey, false)
       c.copy(skipHeaders = false)
     }
     .text("header is a flag. if present, header will not be ignored")
@@ -85,10 +65,11 @@ object CliParser extends scopt.OptionParser[AppConfig]("file-converter") {
   })
 
   checkConfig { c =>
-    if (!c.hdfs.exists(c.inputFile)) {
+    val hdfs = FileSystem.get(c.jobConfiguration)
+    if (!hdfs.exists(c.inputFile)) {
       failure("Input file does not exist!")
-    } else if (c.hdfs.exists(c.outputFile)) {
-      failure(s"Output file already exists: ${c.hdfs.makeQualified(c.outputFile).toString}")
+    } else if (hdfs.exists(c.outputFile)) {
+      failure(s"Output file already exists: ${hdfs.makeQualified(c.outputFile).toString}")
     } else {
       success
     }
