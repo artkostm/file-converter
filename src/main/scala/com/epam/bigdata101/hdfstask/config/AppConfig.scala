@@ -3,8 +3,9 @@ package com.epam.bigdata101.hdfstask.config
 import java.io.File
 
 import com.epam.bigdata101.hdfstask.mapper.HeaderSkippableMapper
+import com.epam.bigdata101.hdfstask.util.HdfsUtil
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.hadoop.fs.Path
 import org.apache.hadoop.mapred.JobConf
 
 final case class AppConfig(
@@ -14,7 +15,7 @@ final case class AppConfig(
     converter: ConverterType.Converter = new ConverterType.Converter {},
     skipHeaders: Boolean = true,
     jobConfiguration: JobConf = new JobConf(),
-    hdfsFactory: Configuration => FileSystem = FileSystem.get(_)
+    hdfsFactory: Configuration => HdfsUtil = new HdfsUtil(_)
 )
 
 object ConverterType {
