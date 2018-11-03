@@ -2,7 +2,6 @@ package com.epam.bigdata101.hdfstask
 
 import java.io.File
 
-import com.epam.bigdata101.hdfstask.config.AppConfig
 import com.epam.bigdata101.hdfstask.mapper.{AvroMapper, ParquetMapper}
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericRecord
