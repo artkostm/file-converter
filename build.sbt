@@ -9,8 +9,10 @@ libraryDependencies ++= Dependencies.test
 
 enablePlugins(JavaAppPackaging)
 
-mainClass in Compile := Some("com.epam.bigdata101.hdfstask.FileConversionJob")
-mainClass in assembly := Some("com.epam.bigdata101.hdfstask.FileConversionJob")
+mainClass in Compile := Some("by.artsiom.bigdata101.hdfstask.FileConversionJob")
+mainClass in assembly := Some("by.artsiom.bigdata101.hdfstask.FileConversionJob")
+
+assemblyJarName in assembly := "file-converter.jar"
 
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard

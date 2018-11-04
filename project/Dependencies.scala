@@ -25,6 +25,8 @@ object Dependencies {
     "org.scalatest"     %% "scalatest"  % versions.scalatest,
     "org.apache.mrunit" % "mrunit"      % versions.mrunit classifier ("hadoop1"),
     "org.scalacheck"    %% "scalacheck" % versions.scalaCheck,
-    "org.scalamock"     %% "scalamock"  % versions.scalaMock
+    "org.scalamock"     %% "scalamock"  % versions.scalaMock,
+    // have to add this dependency to be able to mock mapper context
+    "org.apache.hadoop" % "hadoop-common" % versions.hadoopCommon
   ).map(_ % Test)
 }
