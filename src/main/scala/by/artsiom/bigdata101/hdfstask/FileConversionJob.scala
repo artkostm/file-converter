@@ -1,10 +1,10 @@
-package com.epam.bigdata101.hdfstask
+package by.artsiom.bigdata101.hdfstask
 
 import java.io.File
 import java.nio.charset.StandardCharsets
 
-import com.epam.bigdata101.hdfstask.config.{AppConfig, CliParser, ExitCode}
-import com.epam.bigdata101.hdfstask.config.ConverterType.{Avro, Parquet}
+import by.artsiom.bigdata101.hdfstask.config.{AppConfig, CliParser, ExitCode}
+import by.artsiom.bigdata101.hdfstask.config.ConverterType.{Avro, Parquet}
 import org.apache.avro.Schema
 import org.apache.avro.mapred.AvroOutputFormat
 import org.apache.avro.mapreduce.AvroJob
@@ -21,7 +21,7 @@ import org.apache.parquet.hadoop.example.ExampleOutputFormat
 import org.apache.parquet.hadoop.metadata.CompressionCodecName
 import org.apache.parquet.schema.MessageTypeParser
 
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 object FileConversionJob extends Configured() with Tool with App {
 
@@ -57,15 +57,13 @@ object FileConversionJob extends Configured() with Tool with App {
         job.setNumReduceTasks(0)
         FileInputFormat.setInputPaths(job, appConfig.inputFile)
         FileOutputFormat.setOutputPath(job, appConfig.outputFile)
-        job.waitForCompletion(true)
+        job.waitForCompletion(true) match {
+          case true => ExitCode.Success
+          case false => ExitCode.Failure
+        }
       } match {
-        case scala.util.Success(res) =>
-          println("Success: " + res)
-          if (res) ExitCode.Success
-          else ExitCode.Failure
-        case scala.util.Failure(exception) =>
-          println(s"Unexpected error: ${exception.getMessage}")
-          exception.printStackTrace()
+        case Success(code) => code
+        case Failure(exception) =>
           logger.error(s"Unexpected error: ${exception.getMessage}", exception)
           ExitCode.Failure
       }
@@ -76,6 +74,6 @@ object FileConversionJob extends Configured() with Tool with App {
 
   def readFile(file: String): String =
     // cannot use sys.props("line.separator")(for Windows, it is '\r\n' while in Unix it is just '\n')
-    // because MetaTypeParser reads \r as a type retention
+    // because MetaTypeParser reads '\r' as a type retention
     FileUtils.readLines(new File(file), StandardCharsets.UTF_8).asScala.mkString("\n")
 }

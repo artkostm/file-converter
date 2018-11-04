@@ -1,9 +1,9 @@
-package com.epam.bigdata101.hdfstask.config
+package by.artsiom.bigdata101.hdfstask.config
 
 import java.io.File
 
-import com.epam.bigdata101.hdfstask.mapper.HeaderSkippableMapper
-import com.epam.bigdata101.hdfstask.util.HdfsUtil
+import by.artsiom.bigdata101.hdfstask.mapper.HeaderSkippableMapper
+import by.artsiom.bigdata101.hdfstask.util.HdfsUtil
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.mapred.JobConf

@@ -1,4 +1,4 @@
-package com.epam.bigdata101.hdfstask.config
+package by.artsiom.bigdata101.hdfstask.config
 
 object ExitCode {
   val Success      = 0
