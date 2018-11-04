@@ -31,7 +31,7 @@ abstract class HeaderSkippableMapper[InKey <: LongWritable, InValue, OutKey, Out
     setupMethod = Some(setupF)
 
   /**
-    * Helper function to process rows
+    * Helper function to map rows
     */
   protected def withMap(
       mapF: (InKey, InValue, Mapper[InKey, InValue, OutKey, OutValue]#Context, SetupValue) => Unit): Unit =

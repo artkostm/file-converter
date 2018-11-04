@@ -2,7 +2,7 @@ package com.epam.bigdata101.hdfstask
 
 import java.io.File
 
-import com.epam.bigdata101.hdfstask.mapper.{AvroMapper, ParquetMapper}
+import com.epam.bigdata101.hdfstask.mapper.{AvroMapper, MapperData, ParquetMapper}
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericRecord
 import org.apache.avro.hadoop.io.AvroSerialization
@@ -15,9 +15,7 @@ import org.apache.parquet.hadoop.example.GroupWriteSupport
 import org.apache.parquet.schema.MessageTypeParser
 import org.scalatest.FlatSpec
 
-class FileConversionJobSpec extends FlatSpec {
-  val headers = List("field1", "field2", "field3")
-  val values = List("12", "10.3", "some text")
+class FileConversionJobSpec extends FlatSpec with MapperData {
 
   def withArvroMapDriver(schemaFile: String)
                         (testCode: MapDriver[LongWritable, Text, NullWritable, AvroValue[GenericRecord]] => Unit): Unit = {
