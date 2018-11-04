@@ -1,6 +1,6 @@
-package com.epam.bigdata101.hdfstask.config
+package by.artsiom.bigdata101.hdfstask.config
 
-import com.epam.bigdata101.hdfstask.util.HdfsUtil
+import by.artsiom.bigdata101.hdfstask.util.HdfsUtil
 import org.apache.hadoop.fs._
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FlatSpec
