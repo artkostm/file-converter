@@ -1,4 +1,4 @@
-package com.epam.bigdata101.hdfstask.mapper
+package by.artsiom.bigdata101.hdfstask.mapper
 
 import org.apache.hadoop.io.LongWritable
 import org.apache.hadoop.mapreduce.Mapper

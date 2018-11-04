@@ -1,4 +1,5 @@
-package com.epam.bigdata101.hdfstask.util
+package by.artsiom.bigdata101.hdfstask.util
+
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
 
