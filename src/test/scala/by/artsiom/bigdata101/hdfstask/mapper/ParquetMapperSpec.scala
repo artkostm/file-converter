@@ -1,15 +1,8 @@
-package com.epam.bigdata101.hdfstask.mapper
-import java.io.File
+package by.artsiom.bigdata101.hdfstask.mapper
 
-import com.epam.bigdata101.hdfstask.FileConversionJob
-import org.apache.avro.Schema
-import org.apache.avro.generic.GenericRecord
-import org.apache.avro.hadoop.io.AvroSerialization
-import org.apache.avro.mapred.AvroValue
+import by.artsiom.bigdata101.hdfstask.FileConversionJob
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.io
-import org.apache.hadoop.io.serializer.JavaSerialization
-import org.apache.hadoop.io.{NullWritable, Text}
+import org.apache.hadoop.io.{LongWritable, Text}
 import org.apache.hadoop.mapreduce.{RecordWriter, TaskAttemptID}
 import org.apache.parquet.example.data.Group
 import org.apache.parquet.hadoop.example.GroupWriteSupport
@@ -30,8 +23,8 @@ class ParquetMapperSpec extends FlatSpec with MockFactory with MapperData {
         }
       }
       mapper.setup(context)
-      mapper.map(new io.LongWritable(0), new Text(headers.mkString(",")), context)
-      mapper.map(new io.LongWritable(1), new Text(values.mkString(",")), context)
+      mapper.map(new LongWritable(0), new Text(headers.mkString(",")), context)
+      mapper.map(new LongWritable(1), new Text(values.mkString(",")), context)
     }
 
     it should "not skip header" in {
@@ -45,7 +38,7 @@ class ParquetMapperSpec extends FlatSpec with MockFactory with MapperData {
         }
       }
       mapper.setup(context)
-      mapper.map(new io.LongWritable(0), new Text(headers.mkString(",")), context)
+      mapper.map(new LongWritable(0), new Text(headers.mkString(",")), context)
     }
   }
 

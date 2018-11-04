@@ -1,8 +1,9 @@
-package com.epam.bigdata101.hdfstask
+package by.artsiom.bigdata101.hdfstask
 
 import java.io.File
 
-import com.epam.bigdata101.hdfstask.mapper.{AvroMapper, MapperData, ParquetMapper}
+import by.artsiom.bigdata101.hdfstask.mapper.MapperData
+import by.artsiom.bigdata101.hdfstask.mapper.{AvroMapper, ParquetMapper}
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericRecord
 import org.apache.avro.hadoop.io.AvroSerialization
