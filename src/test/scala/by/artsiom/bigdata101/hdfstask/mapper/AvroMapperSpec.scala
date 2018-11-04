@@ -1,4 +1,5 @@
-package com.epam.bigdata101.hdfstask.mapper
+package by.artsiom.bigdata101.hdfstask.mapper
+
 import java.io.File
 
 import org.apache.avro.Schema
