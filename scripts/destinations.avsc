@@ -1,0 +1,1055 @@
+{
+  "type" : "record",
+  "name" : "destinations",
+  "fields" : [
+	  {
+		"name" : "srch_destination_id",
+		"type" : [
+		  "string"
+		]
+	  },
+	  {
+		"name": "d1",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d2",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d3",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d4",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d5",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d6",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d7",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d8",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d9",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d10",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d11",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d12",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d13",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d14",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d15",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d16",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d17",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d18",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d19",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d20",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d21",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d22",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d23",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d24",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d25",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d26",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d27",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d28",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d29",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d30",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d31",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d32",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d33",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d34",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d35",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d36",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d37",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d38",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d39",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d40",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d41",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d42",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d43",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d44",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d45",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d46",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d47",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d48",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d49",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d50",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d51",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d52",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d53",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d54",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d55",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d56",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d57",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d58",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d59",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d60",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d61",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d62",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d63",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d64",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d65",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d66",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d67",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d68",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d69",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d70",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d71",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d72",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d73",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d74",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d75",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d76",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d77",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d78",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d79",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d80",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d81",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d82",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d83",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d84",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d85",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d86",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d87",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d88",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d89",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d90",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d91",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d92",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d93",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d94",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d95",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d96",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d97",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d98",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d99",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d100",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d101",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d102",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d103",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d104",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d105",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d106",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d107",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d108",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d109",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d110",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d111",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d112",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d113",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d114",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d115",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d116",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d117",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d118",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d119",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d120",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d121",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d122",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d123",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d124",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d125",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d126",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d127",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d128",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d129",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d130",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d131",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d132",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d133",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d134",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d135",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d136",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d137",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d138",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d139",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d140",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d141",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d142",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d143",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d144",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d145",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d146",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d147",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d148",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  },
+	  {
+		"name": "d149",
+		"type": [
+		  "string",
+		  "null"
+		]
+	  }
+	]
+}

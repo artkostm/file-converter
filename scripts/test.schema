@@ -1,0 +1,24 @@
+message test {
+optional binary id;
+optional binary date_time;
+optional binary site_name;
+optional binary posa_continent;
+optional binary user_location_country;
+optional binary user_location_region;
+optional binary user_location_city;
+optional binary orig_destination_distance;
+optional binary user_id;
+optional binary is_mobile;
+optional binary is_package;
+optional binary channel;
+optional binary srch_ci;
+optional binary srch_co;
+optional binary srch_adults_cnt;
+optional binary srch_children_cnt;
+optional binary srch_rm_cnt;
+optional binary srch_destination_id;
+optional binary srch_destination_type_id;
+optional binary hotel_continent;
+optional binary hotel_country;
+optional binary hotel_market;
+}
