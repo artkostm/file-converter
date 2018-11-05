@@ -42,7 +42,7 @@ abstract class HeaderSkippableMapper[InKey <: LongWritable, InValue, OutKey, Out
 
   override def map(key: InKey, value: InValue, context: Mapper[InKey, InValue, OutKey, OutValue]#Context): Unit =
     if (!context.getConfiguration.getBoolean(SkipHeaderKey, true) || key.get() != 0L) {
-      mapMethod.map(_(key, value, context, setupValue)).orNull
+      mapMethod.map(_(key, value, context, setupValue))
     }
 }
 
