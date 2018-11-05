@@ -145,4 +145,5 @@ For file renaiming, let's say we have already dumped the file in HDFS environmen
 ```hdfs dfs -mv 'old file with path' ' New file name with path'```
 
 Console example:
-```fileConverter]$hdfs dfs -mv 'test/Xyz.txt' 'test/new_xyz.txt'```
+
+```[hdfs@sandbox-hdp fileConverter]$hdfs dfs -mv 'test/Xyz.txt' 'test/new_xyz.txt'```
