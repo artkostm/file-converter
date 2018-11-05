@@ -123,3 +123,20 @@ The filesystem under path '/' is HEALTHY
 (END)
 ```
 The output shows some information for each file in HDFS (path to the file, file size, the number of blocks, replication factor, replicas). At the end of the output, we can see summary information similar to the ```hdfs dfsadmin -report``` output.
+
+## Move files
+
+Command to move files from source to destination: ```hdfs dfs -mv /path/to/file.ext /path/to/destination```
+
+Here is the example:
+```shell
+[hdfs@sandbox-hdp filehdfs dfs -ls /tmp/test                                                                                                                                                                  
+Found 2 items
+-rw-r--r--   1 hdfs hdfs      10465 2018-11-05 10:38 /tmp/test/destinations.avsc
+drwxr-xr-x   - root hdfs          0 2018-11-02 15:47 /tmp/test/dir
+[hdfs@sandbox-hdp fileConverter]$ hdfs dfs -mkdir /tmp/test2                                                                                                                                                  
+[hdfs@sandbox-hdp fileConverter]$ hdfs dfs -mv /tmp/test/destinations.avsc /tmp/test2                                                                                                                         
+[hdfs@sandbox-hdp fileConverter]$ hdfs dfs -ls /tmp/test2
+Found 1 items
+-rw-r--r--   1 hdfs hdfs      10465 2018-11-05 10:38 /tmp/test2/destinations.avsc
+```
