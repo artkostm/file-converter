@@ -130,7 +130,7 @@ Command to move files from source to destination: ```hdfs dfs -mv /path/to/file.
 
 Here is the example:
 ```shell
-[hdfs@sandbox-hdp filehdfs dfs -ls /tmp/test                                                                                                                                                                  
+[hdfs@sandbox-hdp fileConverter]$hdfs dfs -ls /tmp/test                                                                                                                                                                  
 Found 2 items
 -rw-r--r--   1 hdfs hdfs      10465 2018-11-05 10:38 /tmp/test/destinations.avsc
 drwxr-xr-x   - root hdfs          0 2018-11-02 15:47 /tmp/test/dir
@@ -140,3 +140,9 @@ drwxr-xr-x   - root hdfs          0 2018-11-02 15:47 /tmp/test/dir
 Found 1 items
 -rw-r--r--   1 hdfs hdfs      10465 2018-11-05 10:38 /tmp/test2/destinations.avsc
 ```
+For file renaiming, let's say we have already dumped the file in HDFS environment under folder (for e.g.) test/Xyz.txt
+
+```hdfs dfs -mv 'old file with path' ' New file name with path'```
+
+Console example:
+```fileConverter]$hdfs dfs -mv 'test/Xyz.txt' 'test/new_xyz.txt'```
