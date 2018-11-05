@@ -11,7 +11,7 @@ sbt assembly
 ```
 hdfs dfs -put /path/to/test.csv /tmp/test.csv
 ```
-- ```./run.sh``` with parquet command and test.schema
+- ```./run.sh``` with **parquet** command and test.schema
 - to be able to view parquet file content, go to the Hive UI and execute the following script:
 ```haskell
 CREATE EXTERNAL TABLE test (
