@@ -9,9 +9,9 @@ sbt assembly
 - download destinations.csv and test.csv from https://www.kaggle.com/c/expedia-hotel-recommendations/data
 - put these files into hdfs. For example: 
 ```
-hdfs dfs -put /path/to/destinations.csv /tmp/destinations.csv
+hdfs dfs -put /path/to/test.csv /tmp/test.csv
 ```
-- ```./run.sh```
+- ```./run.sh``` with parquet command and test.schema
 - to be able to view parquet file content, go to the Hive UI and execute the following script:
 ```haskell
 CREATE EXTERNAL TABLE test (
