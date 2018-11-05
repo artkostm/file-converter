@@ -43,13 +43,13 @@ Last contact: Mon Nov 05 10:10:08 UTC 2018
 Last Block Report: Mon Nov 05 06:57:47 UTC 2018                                                   
 ```
 
-From the console output, we can see the state of cluster memory: capacity, remaining and used memory, blocks information.
+The first section of the output shows the summary of the HDFS cluster, including the configured capacity, present capacity, remaining capacity, used space, number of under-replicated data blocks, number of data blocks with corrupted replicas, and number of missing blocks.
 
-The last ones are very important metrics. **Under-replicated blocks** number shows us the number of blocks with insufficient replication. Hadoop’s replication factor is configurable on a per-client or per-file basis. The default replication factor is 3, meaning that each block will be stored on three DataNodes. If you see growing number of under-replicated blocks, it is likely that a DataNode has died. 
+The last few are very important metrics. **Under-replicated blocks** number shows us the number of blocks with insufficient replication. Hadoop’s replication factor is configurable on a per-client or per-file basis. The default replication factor is 3, meaning that each block will be stored on three DataNodes. If you see growing number of under-replicated blocks, it is likely that a DataNode has died. 
 
 A **missing block** cannot be recovered by copying a replica. A missing block represents a block for which no known copy exists in the cluster. That’s not to say that the block no longer exists—if a series of DataNodes were taken offline for maintenance, missing blocks could be reported until they are brought back up.
 
-The second section of the console output shows us how many live datanode exist in the cluster, their physical address, and memory state for each of these.
+The following sections of the output information show the status of each HDFS slave node, including the name (ip:port) of the DataNode machine, commission status, configured capacity, HDFS and non-HDFS used space amount, HDFS remaining space, and the time that the slave node contacted the master.
 
 ## Checking file system
 
@@ -80,3 +80,46 @@ Console output:
                 ]                                                                                                                                                                                             
           }, ...                                                                                                                                                                                                
 ```
+Fsck HDFS filesystem see if it is healthy ```hdfs fsck / -files -blocks -locations > dfs-fsck.log```:
+
+```shell
+[hdfs@sandbox-hdp fileConverter]$ hdfs fsck / -files -blocks -locations > dfs-fsck.log                                                                                                                        
+Connecting to namenode via http://sandbox-hdp.hortonworks.com:50070/fsck?ugi=hdfs&files=1&blocks=1&locations=1&path=%2F
+[hdfs@sandbox-hdp fileConverter]$ less dfs-fsck.log                                                                                                                                                           
+...
+/user/zeppelin/notebook/2CBPZJDB7 <dir>                                                                                                                                                                       
+/user/zeppelin/notebook/2CBPZJDB7/note.json 59084 bytes, 1 block(s):  OK                                                                                                                                      
+0. BP-243674277-172.17.0.2-1529333510191:blk_1073741837_1013 len=59084 repl=1 [DatanodeInfoWithStorage[172.18.0.2:50010,DS-ab75b94d-c6f2-4415-8639-1aaec2609e13,DISK]]                                        
+                                                                                                                                                                                                              
+/user/zeppelin/notebook/2CBTZPY14 <dir>                                                                                                                                                                       
+/user/zeppelin/notebook/2CBTZPY14/note.json 66945 bytes, 1 block(s):  OK                                                                                                                                      
+0. BP-243674277-172.17.0.2-1529333510191:blk_1073741836_1012 len=66945 repl=1 [DatanodeInfoWithStorage[172.18.0.2:50010,DS-ab75b94d-c6f2-4415-8639-1aaec2609e13,DISK]]                                        
+                                                                                                                                                                                                              
+/user/zeppelin/notebook/2CCBNZ5YY <dir>                                                                                                                                                                       
+/user/zeppelin/notebook/2CCBNZ5YY/note.json 64543 bytes, 1 block(s):  OK                                                                                                                                      
+0. BP-243674277-172.17.0.2-1529333510191:blk_1073741843_1019 len=64543 repl=1 [DatanodeInfoWithStorage[172.18.0.2:50010,DS-ab75b94d-c6f2-4415-8639-1aaec2609e13,DISK]]                                        
+                                                                                                                                                                                                              
+/user/zeppelin/test <dir>                                                                                                                                                                                     
+Status: HEALTHY                                                                                                                                                                                               
+ Total size:    2537242881 B                                                                                                                                                                                  
+ Total dirs:    286                                                                                                                                                                                           
+ Total files:   1165                                                                                                                                                                                          
+ Total symlinks:                0 (Files currently being written: 2)                                                                                                                                          
+ Total blocks (validated):      1160 (avg. block size 2187278 B) (Total open file blocks (not validated): 1)                                                                                                  
+ Minimally replicated blocks:   1160 (100.0 %)                                                                                                                                                                
+ Over-replicated blocks:        0 (0.0 %)                                                                                                                                                                     
+ Under-replicated blocks:       0 (0.0 %)                                                                                                                                                                     
+ Mis-replicated blocks:         0 (0.0 %)                                                                                                                                                                     
+ Default replication factor:    1                                                                                                                                                                             
+ Average block replication:     1.0                                                                                                                                                                           
+ Corrupt blocks:                0                                                                                                                                                                             
+ Missing replicas:              0 (0.0 %)                                                                                                                                                                     
+ Number of data-nodes:          1                                                                                                                                                                             
+ Number of racks:               1                                                                                                                                                                             
+FSCK ended at Mon Nov 05 10:41:35 UTC 2018 in 40 milliseconds                                                                                                                                                 
+                                                                                                                                                                                                              
+                                                                                                                                                                                                              
+The filesystem under path '/' is HEALTHY                                                                                                                                                                      
+(END)
+```
+The output shows some information for each file in HDFS (path to the file, file size, the number of blocks, replication factor, replicas). At the end of the output, we can see summary information similar to the ```hdfs dfsadmin -report``` output.
