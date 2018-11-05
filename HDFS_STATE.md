@@ -146,4 +146,16 @@ For file renaiming, let's say we have already dumped the file in HDFS environmen
 
 Console example:
 
-```[hdfs@sandbox-hdp fileConverter]$hdfs dfs -mv 'test/Xyz.txt' 'test/new_xyz.txt'```
+```shell
+[hdfs@sandbox-hdp fileConverter]$hdfs dfs -ls /tmp/test                                                                                                                                                                  
+Found 3 items
+-rw-r--r--   1 hdfs hdfs      10465 2018-11-05 10:38 /tmp/test/destinations.avsc
+-rw-r--r--   1 hdfs hdfs        314 2018-11-03 14:11 /tmp/test/Xyz.txt
+drwxr-xr-x   - root hdfs          0 2018-11-02 15:47 /tmp/test/dir
+[hdfs@sandbox-hdp fileConverter]$hdfs dfs -mv /tmp/test/Xyz.txt /tmp/test/new_xyz.txt
+[hdfs@sandbox-hdp fileConverter]$hdfs dfs -ls /tmp/test                                                                                                                                                                  
+Found 3 items
+-rw-r--r--   1 hdfs hdfs      10465 2018-11-05 10:38 /tmp/test/destinations.avsc
+-rw-r--r--   1 hdfs hdfs        314 2018-11-03 14:11 /tmp/test/new_xyz.txt
+drwxr-xr-x   - root hdfs          0 2018-11-02 15:47 /tmp/test/dir
+```
