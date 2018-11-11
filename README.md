@@ -54,7 +54,7 @@ Args:
 *-s or --schema* - schema file in the local file system (should exist)<br>
 *-h or --header* - a flag, if present, the header of the input file will not be ignored<br>
 
-Depending on command specified, the job consist of either AvroMapper or ParquetMapper task and with no reduce tasks.
+Depending on the command specified, the job consist of either AvroMapper or ParquetMapper task and with no reduce tasks.
 
 ## Test run example
 
