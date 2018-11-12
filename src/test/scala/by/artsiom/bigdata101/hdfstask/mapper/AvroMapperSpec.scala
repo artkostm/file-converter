@@ -19,9 +19,9 @@ class AvroMapperSpec extends FlatSpec with MockFactory with MapperData {
     val mapper = new AvroMapper
 
     it should "skip header and write one record" in {
-      val writer = mock[RecordWriter[NullWritable, AvroValue[GenericRecord]]]
-      val context = new mapper.Context(configuration, new TaskAttemptID(), null, writer, null, null, null)
-      (writer.write _) expects(*, *) onCall { (_: NullWritable, value: AvroValue[GenericRecord]) =>
+      val context = mock[mapper.Context]
+      (context.getConfiguration _) expects() returning configuration anyNumberOfTimes()
+      (context.write _) expects(*, *) onCall { (_: NullWritable, value: AvroValue[GenericRecord]) =>
         val record = value.datum()
         (0 until headers.size) foreach { i =>
           assert(record.get(headers(i)) == values(i))
@@ -35,9 +35,9 @@ class AvroMapperSpec extends FlatSpec with MockFactory with MapperData {
     it should "not skip header" in {
       val config = configuration
       config.setBoolean(HeaderSkippableMapper.SkipHeaderKey, false)
-      val writer = mock[RecordWriter[NullWritable, AvroValue[GenericRecord]]]
-      val context = new mapper.Context(config, new TaskAttemptID(), null, writer, null, null, null)
-      (writer.write _) expects(*, *) onCall { (_: NullWritable, value: AvroValue[GenericRecord]) =>
+      val context = mock[mapper.Context]
+      (context.getConfiguration _) expects() returning config anyNumberOfTimes()
+      (context.write _) expects(*, *) onCall { (_: NullWritable, value: AvroValue[GenericRecord]) =>
         val record = value.datum()
         (0 until headers.size) foreach { i =>
           assert(record.get(headers(i)) == headers(i))
