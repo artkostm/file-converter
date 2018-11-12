@@ -15,9 +15,10 @@ class ParquetMapperSpec extends FlatSpec with MockFactory with MapperData {
     val mapper = new ParquetMapper
 
     it should "skip header and write one record" in {
-      val writer = mock[RecordWriter[Void, Group]]
-      val context = new mapper.Context(configuration, new TaskAttemptID(), null, writer, null, null, null)
-      (writer.write _) expects(*, *) onCall { (_, value: Group) =>
+//      val writer = mock[RecordWriter[Void, Group]]
+      val context = mock[mapper.Context]
+      (context.getConfiguration _) expects() returning configuration anyNumberOfTimes()
+      (context.write _) expects(*, *) onCall { (_, value: Group) =>
         (0 until headers.size) foreach { i =>
           assert(value.getString(headers(i), 0) == values(i))
         }
@@ -30,9 +31,10 @@ class ParquetMapperSpec extends FlatSpec with MockFactory with MapperData {
     it should "not skip header" in {
       val config = configuration
       config.setBoolean(HeaderSkippableMapper.SkipHeaderKey, false)
-      val writer = mock[RecordWriter[Void, Group]]
-      val context = new mapper.Context(config, new TaskAttemptID(), null, writer, null, null, null)
-      (writer.write _) expects(*, *) onCall { (_, value: Group) =>
+//      val writer = mock[RecordWriter[Void, Group]]
+      val context = mock[mapper.Context]
+      (context.getConfiguration _) expects() returning config anyNumberOfTimes()
+      (context.write _) expects(*, *) onCall { (_, value: Group) =>
         (0 until headers.size) foreach { i =>
           assert(value.getString(headers(i), 0) == headers(i))
         }
