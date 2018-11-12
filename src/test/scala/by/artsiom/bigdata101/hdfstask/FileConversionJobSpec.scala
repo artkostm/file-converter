@@ -61,5 +61,8 @@ class FileConversionJobSpec extends FlatSpec with MapperData {
       val value = driver.run()
 
       assert(value.size() == 1)
+      (0 until headers.size) foreach { i =>
+        assert(value.get(0).getSecond.getString(headers(i), 0) == values(i))
+      }
   }
 }
