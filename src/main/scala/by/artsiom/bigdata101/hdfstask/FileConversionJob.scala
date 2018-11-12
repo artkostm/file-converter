@@ -11,6 +11,7 @@ import org.apache.avro.mapreduce.AvroJob
 import org.apache.commons.io.FileUtils
 import org.apache.commons.logging.LogFactory
 import org.apache.hadoop.conf.Configured
+import org.apache.hadoop.mapred.JobConf
 import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
@@ -32,43 +33,44 @@ object FileConversionJob extends Configured() with Tool with App {
   val code = ToolRunner.run(FileConversionJob, args)
   System.exit(code)
 
-  override def run(args: Array[String]): Int = CliParser.parse(args, AppConfig()) match {
-    case Some(appConfig) =>
-      Try {
-        val jobConf = appConfig.jobConfiguration
-        val job     = Job.getInstance(jobConf, getClass.getName)
-        job.setJarByClass(getClass)
+  override def run(args: Array[String]): Int =
+    CliParser.parse(args, AppConfig(jobConfiguration = new JobConf(getConf))) match {
+      case Some(appConfig) =>
+        Try {
+          val jobConf = appConfig.jobConfiguration
+          val job     = Job.getInstance(jobConf, getClass.getName)
+          job.setJarByClass(getClass)
 
-        appConfig.converter match {
-          case Avro =>
-            job.setMapperClass(classOf[mapper.AvroMapper])
-            jobConf.setOutputFormat(classOf[AvroOutputFormat[_]])
-            AvroJob.setMapOutputValueSchema(job, new Schema.Parser().parse(new File(appConfig.schemaFile)))
-          case Parquet =>
-            job.setOutputValueClass(classOf[Group])
-            job.setOutputFormatClass(classOf[ExampleOutputFormat])
-            ExampleOutputFormat.setSchema(job, MessageTypeParser.parseMessageType(readFile(appConfig.schemaFile)))
-            ParquetOutputFormat.setCompression(job, CompressionCodecName.GZIP)
-            ParquetOutputFormat.setBlockSize(job, 500 * 1024 * 1024)
-            job.setMapperClass(classOf[mapper.ParquetMapper])
-          case _ =>
-        }
+          appConfig.converter match {
+            case Avro =>
+              job.setMapperClass(classOf[mapper.AvroMapper])
+              jobConf.setOutputFormat(classOf[AvroOutputFormat[_]])
+              AvroJob.setMapOutputValueSchema(job, new Schema.Parser().parse(new File(appConfig.schemaFile)))
+            case Parquet =>
+              job.setOutputValueClass(classOf[Group])
+              job.setOutputFormatClass(classOf[ExampleOutputFormat])
+              ExampleOutputFormat.setSchema(job, MessageTypeParser.parseMessageType(readFile(appConfig.schemaFile)))
+              ParquetOutputFormat.setCompression(job, CompressionCodecName.GZIP)
+              ParquetOutputFormat.setBlockSize(job, 500 * 1024 * 1024)
+              job.setMapperClass(classOf[mapper.ParquetMapper])
+            case _ =>
+          }
 
-        job.setNumReduceTasks(0)
-        FileInputFormat.setInputPaths(job, appConfig.inputFile)
-        FileOutputFormat.setOutputPath(job, appConfig.outputFile)
-        job.waitForCompletion(true) match {
-          case true => ExitCode.Success
-          case false => ExitCode.Failure
+          job.setNumReduceTasks(0)
+          FileInputFormat.setInputPaths(job, appConfig.inputFile)
+          FileOutputFormat.setOutputPath(job, appConfig.outputFile)
+          job.waitForCompletion(true) match {
+            case true  => ExitCode.Success
+            case false => ExitCode.Failure
+          }
+        } match {
+          case Success(code) => code
+          case Failure(exception) =>
+            logger.error(s"Unexpected error: ${exception.getMessage}", exception)
+            ExitCode.Failure
         }
-      } match {
-        case Success(code) => code
-        case Failure(exception) =>
-          logger.error(s"Unexpected error: ${exception.getMessage}", exception)
-          ExitCode.Failure
-      }
-    case None => ExitCode.InvalidInput
-  }
+      case None => ExitCode.InvalidInput
+    }
 
   import scala.collection.JavaConverters._
 
