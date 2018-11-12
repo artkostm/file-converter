@@ -126,6 +126,6 @@ edy this.
                 Bytes Written=59516829                                                                                                                                                  
 Success: true                                                                                                                                                                           
 ```
-After hive table creation, we can view the parquet file content:
+After hive table creation, we are able to view the parquet file content:
 
 ![Parquet file content](./img/parquet_file_content.png "Parquet file content")
