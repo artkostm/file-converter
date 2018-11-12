@@ -67,7 +67,7 @@ object FileConversionJob extends Configured() with Tool with App {
           case Success(code) => code
           case Failure(exception) =>
             logger.error(s"Unexpected error: ${exception.getMessage}", exception)
-            ExitCode.Failure
+            ExitCode.UnexpectedError
         }
       case None => ExitCode.InvalidInput
     }
