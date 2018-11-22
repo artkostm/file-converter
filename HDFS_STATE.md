@@ -1,4 +1,4 @@
-# Task 2
+# HDFS State
 ## Acceptance criteria
 - Check current state of hdfs via CLI, describe the state and make a screenshot.
 - Perform checking file system, make a screenshot.
